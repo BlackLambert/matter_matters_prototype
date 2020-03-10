@@ -4,15 +4,23 @@ using UnityEngine;
 
 public class GameQuiter : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    private KeyCode _quiterKey = KeyCode.Escape;
+
+    protected virtual void Update()
     {
-        
+        if(Input.anyKeyDown && Input.GetKeyDown(_quiterKey))
+        {
+            quit();
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void quit()
     {
-        
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
     }
 }
