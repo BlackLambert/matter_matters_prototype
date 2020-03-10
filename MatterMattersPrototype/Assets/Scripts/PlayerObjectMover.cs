@@ -11,9 +11,10 @@ public class PlayerObjectMover : MonoBehaviour
     private float _speed = 1f;
 
     [SerializeField]
-    private Rigidbody2D _rigidbody = null;
+    private Config _config = null;
 
-    private const float _speedFactor = 0.001f;
+    [SerializeField]
+    private Rigidbody2D _rigidbody = null;
 
     protected virtual void Start()
     {
@@ -40,11 +41,10 @@ public class PlayerObjectMover : MonoBehaviour
     {
         Vector2 mouseDistance = calculateMouseDistance();
         _rigidbody.velocity = calculateSpeed(mouseDistance) * mouseDistance.normalized;
-        Debug.Log(_rigidbody.velocity);
     }
 
     private float calculateSpeed(Vector2 distance)
     {
-        return distance.magnitude * _speed * _speedFactor;
+        return distance.magnitude * _speed * _config.PlayerSpeedFactor;
     }
 }
